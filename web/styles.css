@@ -166,6 +166,41 @@ code{
   background:#000;
   border-radius:12px;
 }
+.video-frame{
+  position:relative;
+  width:100%;
+}
+.video-frame .play-overlay{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:64px;
+  height:64px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.28);
+  background: rgba(15, 23, 42, .55);
+  box-shadow: 0 14px 30px rgba(2,6,23,.22);
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+}
+.video-frame .play-overlay:focus-visible{
+  outline:3px solid rgba(37,99,235,.55);
+  outline-offset:3px;
+}
+.video-frame .play-icon{
+  width:0;
+  height:0;
+  border-left:18px solid #fff;
+  border-top:12px solid transparent;
+  border-bottom:12px solid transparent;
+  margin-left:3px; /* 视觉居中微调 */
+}
+.video-frame.is-playing .play-overlay{
+  opacity:0;
+  pointer-events:none;
+}
 .caption{
   color:var(--muted);
   font-size:12px;

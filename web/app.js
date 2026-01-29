@@ -31,8 +31,57 @@ function mediaNode(kind, src, caption) {
   }
 
   if (kind === "video") {
+    const video = el("video", {
+      preload: "metadata",
+      src,
+      playsinline: "",
+      // iOS Safari 兼容
+      "webkit-playsinline": "",
+    });
+
+    const playBtn = el("button", {
+      class: "play-overlay",
+      type: "button",
+      "aria-label": "播放视频",
+    });
+    playBtn.appendChild(el("span", { class: "play-icon", "aria-hidden": "true" }));
+
+    const frame = el("div", { class: "video-frame" }, [video, playBtn]);
+
+    const setPlayingUI = () => {
+      if (video.paused || video.ended) frame.classList.remove("is-playing");
+      else frame.classList.add("is-playing");
+    };
+
+    playBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        await video.play();
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setPlayingUI();
+      }
+    });
+
+    // 允许直接点击画面播放/暂停（仍然只有“一个按钮”的视觉）
+    video.addEventListener("click", async () => {
+      try {
+        if (video.paused) await video.play();
+        else video.pause();
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setPlayingUI();
+      }
+    });
+
+    video.addEventListener("play", setPlayingUI);
+    video.addEventListener("pause", setPlayingUI);
+    video.addEventListener("ended", setPlayingUI);
+
     return el("div", { class: "media" }, [
-      el("video", { controls: "", preload: "metadata", src }),
+      frame,
       caption ? el("div", { class: "caption", text: caption }) : null,
     ]);
   }

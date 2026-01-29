@@ -5,17 +5,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>NingBGM · Project Page</title>
     <meta name="description" content="NingBGM 项目展示页（入口）。" />
-    <meta http-equiv="refresh" content="0; url=./web/" />
     <style>
-      body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Arial,"Microsoft YaHei";background:#fff;color:#0f172a}
-      .wrap{max-width:720px;margin:80px auto;padding:0 16px}
-      a{color:#2563eb}
+      :root{
+        --bg:#ffffff;
+        --line:#e5e7eb;
+        --text:#0f172a;
+        --muted:#475569;
+        --accent:#2563eb;
+        --shadow:0 12px 30px rgba(2,6,23,.08);
+        --radius:14px;
+      }
+      *{box-sizing:border-box}
+      body{
+        margin:0;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, "PingFang SC", "Microsoft YaHei";
+        background:var(--bg);
+        color:var(--text);
+      }
+      a{color:var(--accent)}
+      code{
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+        font-size: .95em;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        padding: .1em .35em;
+        border-radius: 8px;
+      }
+      .wrap{max-width:980px;margin:50px auto;padding:0 16px}
+      .top{
+        display:flex;align-items:flex-end;justify-content:space-between;
+        gap:12px;flex-wrap:wrap;
+        margin-bottom:14px;
+      }
+      .title{margin:0;font-size:36px;letter-spacing:-.2px}
+      .muted{color:var(--muted);line-height:1.7}
+      .card{
+        border:1px solid var(--line);
+        border-radius: var(--radius);
+        padding:14px 14px;
+        box-shadow: var(--shadow);
+        background:#fff;
+      }
+      .video-frame{
+        position:relative;
+        width:100%;
+      }
+      video{
+        width:100%;
+        background:#000;
+        border-radius: 12px;
+        display:block;
+      }
+      .play-overlay{
+        position:absolute;
+        left:50%;
+        top:50%;
+        transform:translate(-50%,-50%);
+        width:64px;
+        height:64px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.28);
+        background: rgba(15, 23, 42, .55);
+        box-shadow: 0 14px 30px rgba(2,6,23,.22);
+        cursor:pointer;
+        display:grid;
+        place-items:center;
+      }
+      .play-overlay:focus-visible{
+        outline:3px solid rgba(37,99,235,.55);
+        outline-offset:3px;
+      }
+      .play-icon{
+        width:0;height:0;
+        border-left:18px solid #fff;
+        border-top:12px solid transparent;
+        border-bottom:12px solid transparent;
+        margin-left:3px;
+      }
+      .video-frame.is-playing .play-overlay{
+        opacity:0;
+        pointer-events:none;
+      }
+      .caption{margin-top:10px;font-size:12px;color:var(--muted);word-break:break-all}
+      .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+      .btn{
+        appearance:none;border:1px solid #1d4ed8;
+        background:#2563eb;color:#fff;
+        padding:10px 12px;border-radius:12px;
+        text-decoration:none;cursor:pointer;
+      }
+      .btn.ghost{
+        background:#fff;color:var(--text);
+        border-color:var(--line);
+      }
     </style>
   </head>
   <body>
     <main class="wrap">
-      <h1>NingBGM</h1>
-      <p>正在跳转到项目页：<a href="./web/">./web/</a></p>
+      <div class="top">
+        <h1 class="title">NingBGM</h1>
+        <div class="actions">
+          <a class="btn ghost" href="./web/">打开完整页面（web/）</a>
+        </div>
+      </div>
+      <p class="muted">
+        这是根目录 <code>index.html</code> 的视频播放区：点击视频中央的播放按钮即可在此区域播放。
+        默认会加载 <code>web/data/example_mp4.json</code> 的第一条视频。
+      </p>
+
+      <section class="card" aria-label="视频播放区">
+        <div id="videoFrame" class="video-frame">
+          <video id="heroVideo" preload="metadata" playsinline webkit-playsinline></video>
+          <button id="playBtn" class="play-overlay" type="button" aria-label="播放视频">
+            <span class="play-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div id="videoCaption" class="caption"></div>
+        <div id="status" class="caption"></div>
+      </section>
     </main>
+
+    <script>
+      const DATA_URL = "./web/data/example_mp4.json";
+
+      const frame = document.getElementById("videoFrame");
+      const video = document.getElementById("heroVideo");
+      const playBtn = document.getElementById("playBtn");
+      const caption = document.getElementById("videoCaption");
+      const status = document.getElementById("status");
+
+      function setStatus(msg){
+        if (!status) return;
+        status.textContent = msg || "";
+      }
+
+      function setPlayingUI(){
+        if (!frame) return;
+        if (video.paused || video.ended) frame.classList.remove("is-playing");
+        else frame.classList.add("is-playing");
+      }
+
+      async function tryPlay(){
+        try{
+          await video.play();
+        }catch(e){
+          console.error(e);
+          setStatus("播放失败：可能是浏览器限制/路径错误/编码不兼容。");
+        }finally{
+          setPlayingUI();
+        }
+      }
+
+      playBtn?.addEventListener("click", (e) => {
+        e.preventDefault();
+        tryPlay();
+      });
+      video?.addEventListener("click", async () => {
+        try{
+          if (video.paused) await video.play();
+          else video.pause();
+        }catch(e){
+          console.error(e);
+        }finally{
+          setPlayingUI();
+        }
+      });
+      video?.addEventListener("play", setPlayingUI);
+      video?.addEventListener("pause", setPlayingUI);
+      video?.addEventListener("ended", setPlayingUI);
+
+      async function loadFirstVideo(){
+        setStatus("正在加载视频列表…");
+        const res = await fetch(DATA_URL, { cache: "no-store" });
+        if (!res.ok) throw new Error(`加载失败：${res.status} ${res.statusText}`);
+        const data = await res.json();
+        const first = Array.isArray(data?.videos) ? data.videos[0] : null;
+        if (!first?.src) throw new Error("未找到可播放的视频（请检查 web/data/example_mp4.json）");
+
+        video.src = first.src;
+        if (caption) caption.textContent = `${first.title || first.id || "video"} · ${first.src}`;
+        setStatus("");
+        setPlayingUI();
+      }
+
+      loadFirstVideo().catch((e) => {
+        console.error(e);
+        setStatus(String(e?.message || e));
+      });
+    </script>
   </body>
 </html>

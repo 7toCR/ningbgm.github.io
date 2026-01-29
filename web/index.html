@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NingBGM · Project Page</title>
+    <meta name="description" content="NingBGM 项目展示页：纯白论文风格、目录锚点、视频/音频对比网格、用 JSON 自动渲染案例。" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#content">跳到正文</a>
+
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand">
+          <div class="brand-mark">NB</div>
+          <div class="brand-text">
+            <div class="brand-title">NingBGM</div>
+            <div class="brand-subtitle">Project Page · GitHub Pages</div>
+          </div>
+        </div>
+
+        <nav class="topnav" aria-label="主导航">
+          <a href="#Examples">Examples</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content" class="container">
+      <section class="hero">
+        <div class="hero-left">
+          <h1 class="h1">NingBGM Demo Page</h1>
+          <p class="muted">
+            一个接近 <code>audiogenie.github.io</code> 风格的静态项目页（纯白主题）：支持目录锚点、视频/音频播放器、
+            并且本版本仅展示仓库 <code>example/</code> 目录下的 mp4。
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn" href="#" target="_blank" rel="noreferrer">Paper</a>
+            <a class="btn ghost" href="#" target="_blank" rel="noreferrer">Dataset</a>
+            <a class="btn ghost" href="#" target="_blank" rel="noreferrer">Code</a>
+            <a class="btn ghost" href="./data/example_mp4.json" target="_blank" rel="noreferrer">example_mp4.json</a>
+          </div>
+
+          <div class="notice">
+            <div class="notice-title">如何更新展示的视频列表？</div>
+            <div class="notice-body">
+              编辑 <code>web/data/example_mp4.json</code>，把每个条目的 <code>src</code> 指向
+              <code>/example/...</code> 下的 mp4 即可。
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-right" aria-label="快速目录">
+          <div class="card">
+            <div class="card-title">Experiment (Demo)</div>
+            <ul class="toc">
+              <li><a href="#Examples">Examples (mp4)</a></li>
+            </ul>
+            <div class="divider"></div>
+            <button id="reloadBtn" class="btn small" type="button">重新加载 example_mp4.json</button>
+            <div id="status" class="status" role="status" aria-live="polite"></div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="Examples" class="section">
+        <div id="videoGallery"></div>
+      </section>
+
+      <footer class="footer">
+        <div class="muted tiny">
+          生成/改造：<code>web/index.html</code> + <code>web/styles.css</code> + <code>web/app.js</code>
+        </div>
+      </footer>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

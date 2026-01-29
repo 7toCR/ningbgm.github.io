@@ -1,0 +1,93 @@
+{
+  "video": {
+    "methods": [
+      { "id": "input", "label": "Input Video" },
+      { "id": "bgm", "label": "Ours (w background music)" },
+      { "id": "cn", "label": "Ours (CN)" },
+      { "id": "en", "label": "Ours (EN)" }
+    ],
+    "cases": [
+      {
+        "id": "beauty_02",
+        "title": "beauty_02",
+        "note": "示例文件来自仓库的 example/ 目录",
+        "outputs": [
+          { "methodId": "input", "video": "/example/beauty_02/beauty_02.mp4", "caption": "input" },
+          { "methodId": "bgm", "video": "/example/beauty_02/bgm/bgm.mp4", "caption": "w/ bgm" },
+          { "methodId": "cn", "video": "/example/beauty_02/cn/cn.mp4", "caption": "CN" },
+          { "methodId": "en", "video": "/example/beauty_02/en/en.mp4", "caption": "EN" }
+        ]
+      },
+      {
+        "id": "beauty_06",
+        "title": "beauty_06",
+        "note": "示例文件来自仓库的 example/ 目录",
+        "outputs": [
+          { "methodId": "input", "video": "/example/beauty_06/beauty_06.mp4", "caption": "input" },
+          { "methodId": "bgm", "video": "/example/beauty_06/bgm/bgm.mp4", "caption": "w/ bgm" },
+          { "methodId": "cn", "video": "/example/beauty_06/cn/cn.mp4", "caption": "CN" },
+          { "methodId": "en", "video": "/example/beauty_06/en/en.mp4", "caption": "EN" }
+        ]
+      },
+      {
+        "id": "food_02",
+        "title": "food_02",
+        "note": "示例文件来自仓库的 example/ 目录",
+        "outputs": [
+          { "methodId": "input", "video": "/example/food_02/food_02.mp4", "caption": "input" },
+          { "methodId": "bgm", "video": "/example/food_02/bgm/bgm.mp4", "caption": "w/ bgm" },
+          { "methodId": "cn", "video": "/example/food_02/cn/cn.mp4", "caption": "CN" },
+          { "methodId": "en", "video": "/example/food_02/en/en.mp4", "caption": "EN" }
+        ]
+      },
+      {
+        "id": "scene_17",
+        "title": "scene_17",
+        "note": "示例文件来自仓库的 example/ 目录",
+        "outputs": [
+          { "methodId": "input", "video": "/example/scene_17/scene_17.mp4", "caption": "input" },
+          { "methodId": "bgm", "video": "/example/scene_17/bgm/bgm.mp4", "caption": "w/ bgm" },
+          { "methodId": "cn", "video": "/example/scene_17/cn/cn.mp4", "caption": "CN" },
+          { "methodId": "en", "video": "/example/scene_17/en/en.mp4", "caption": "EN" }
+        ]
+      }
+    ]
+  },
+  "text": {
+    "methods": [
+      { "id": "auffusion", "label": "Auffusion" },
+      { "id": "mmaudio", "label": "MMAudio" },
+      { "id": "ours", "label": "Ours" }
+    ],
+    "cases": [
+      {
+        "id": "t1",
+        "prompt": "示例文本：莉莉小心翼翼地踩在树叶上走进森林……\n（把你的文本粘贴在这里）",
+        "outputs": [
+          { "methodId": "auffusion", "audio": "", "caption": "" },
+          { "methodId": "mmaudio", "audio": "", "caption": "" },
+          { "methodId": "ours", "audio": "", "caption": "" }
+        ]
+      }
+    ]
+  },
+  "image": {
+    "methods": [
+      { "id": "see2sound", "label": "See2Sound" },
+      { "id": "ssv2a", "label": "SSV2A" },
+      { "id": "ours", "label": "Ours" }
+    ],
+    "cases": [
+      {
+        "id": "i1",
+        "image": "",
+        "outputs": [
+          { "methodId": "see2sound", "audio": "", "caption": "" },
+          { "methodId": "ssv2a", "audio": "", "caption": "" },
+          { "methodId": "ours", "audio": "", "caption": "" }
+        ]
+      }
+    ]
+  }
+}
+

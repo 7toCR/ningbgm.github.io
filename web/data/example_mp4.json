@@ -1,0 +1,16 @@
+{
+  "title": "Example Videos",
+  "videos": [
+    {
+      "id": "car_01_bgm",
+      "title": "car_01 / bgm",
+      "src": "/example/car_01/bgm/bgm.mp4"
+    },
+    {
+      "id": "car_01_vocal",
+      "title": "car_01 / vocal",
+      "src": "/example/car_01/vocal/vocal.mp4"
+    }
+  ]
+}
+
